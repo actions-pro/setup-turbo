@@ -2,7 +2,7 @@ name: Setup Turbo
 description:
 
 inputs:
-  package-manager:
+  package_manager:
     description:
     default: npm
 
@@ -14,7 +14,7 @@ runs:
   using: composite
   steps:
     - name: Install Turbo
-      run: ${{ inputs.package-manager == 'yarn' && 'yarn global add' || format('{0} install --global', inputs.package-manager) }} turbo@${{ inputs.version }}
+      run: ${{ inputs.package_manager == 'yarn' && 'yarn global add' || format('{0} install --global', inputs.package_manager) }} turbo@${{ inputs.version }}
 
     - name: Setup cache
       uses: actions/cache@v4
@@ -22,10 +22,6 @@ runs:
         path: .turbo
         key: ${{ runner.os }}-turbo-${{ github.sha }}
         restore-keys: ${{ runner.os }}-turbo-
-
-    - name: Get last workflow run
-      id: last_workflow_run
-      uses: actions-pro/last-workflow-run@v1
 
 outputs:
   sha:
